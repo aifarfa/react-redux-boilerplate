@@ -2,13 +2,15 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import Hello from './Hello'
+import {onLoad} from '../modules/home'
+
 /**
  * dump component
  */
 export class Home extends React.Component {
 
   componentDidMount() {
-    console.log('componentDidMount Home')
+    this.props.onLoad();
   }
 
   render() {
@@ -21,22 +23,20 @@ export class Home extends React.Component {
   }
 }
 
-const propsMapper = (state) => {
-  console.log('props from state', state.toJS());
+Home.propTypes = {
+  hasPermission: React.PropTypes.bool.isRequired,
+  title: React.PropTypes.string.isRequired
+}
 
-  return {
-    'hasPermission': state.get('permission'),
-    'title': 'home page'
-  }
+const propsMapper = (state) => {
+  return {'hasPermission': state.get('permission'), 'title': 'Home page'}
 }
 
 const actionMapper = (dispatch) => {
-  return {
-
-  }
+  return {onLoad: onLoad(dispatch)}
 }
 
 /**
- * default
+ * default connected component
  */
 export default connect(propsMapper, actionMapper)(Home)

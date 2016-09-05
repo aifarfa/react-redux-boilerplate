@@ -7,7 +7,7 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import {syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 
-import reducers from './reducers'
+import {reducers} from './modules'
 import App from './components/App'
 import About from './components/About'
 import Home from './components/Home'
@@ -17,7 +17,7 @@ import Home from './components/Home'
 
 const initialState = Immutable.fromJS({
   routing: {},
-  permission: true
+  // permission: false
 });
 
 const middleware = applyMiddleware(thunkMiddleware, routerMiddleware(browserHistory));
