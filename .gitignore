@@ -1,0 +1,7 @@
+/coverage
+/node_modules
+/public/bundle.js
+/.nyc_output
+.DS_STORE
+*.js.map
+*.log
