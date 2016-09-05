@@ -22,8 +22,10 @@ export class Home extends React.Component {
 }
 
 const propsMapper = (state) => {
+  console.log('props from state', state.toJS());
+
   return {
-    'hasPermission': false,
+    'hasPermission': state.get('permission'),
     'title': 'home page'
   }
 }

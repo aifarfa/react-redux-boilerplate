@@ -15,7 +15,11 @@ import Home from './components/Home'
 // require('./style.scss');
 // require('../node_modules/bootstrap/dist/css/bootstrap.css');
 
-const initialState = Immutable.fromJS({routing: {}});
+const initialState = Immutable.fromJS({
+  routing: {},
+  permission: true
+});
+
 const middleware = applyMiddleware(thunkMiddleware, routerMiddleware(browserHistory));
 const store = createStore(reducers, initialState, compose(middleware));
 
