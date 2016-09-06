@@ -16,8 +16,7 @@ import Home from './components/Home'
 // require('../node_modules/bootstrap/dist/css/bootstrap.css');
 
 const initialState = Immutable.fromJS({
-  routing: {},
-  // permission: false
+  routing: {}
 });
 
 const middleware = applyMiddleware(thunkMiddleware, routerMiddleware(browserHistory));

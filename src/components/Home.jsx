@@ -25,11 +25,16 @@ export class Home extends React.Component {
 
 Home.propTypes = {
   hasPermission: React.PropTypes.bool.isRequired,
-  title: React.PropTypes.string.isRequired
+  isLoading: React.PropTypes.bool,
+  title: React.PropTypes.string,
 }
 
 const propsMapper = (state) => {
-  return {'hasPermission': state.get('permission'), 'title': 'Home page'}
+  return {
+    hasPermission: state.getIn(['home', 'permission']),
+    isLoading: state.getIn(['home', 'isLoading']),
+    title: 'Home page'
+  }
 }
 
 const actionMapper = (dispatch) => {

@@ -1,34 +1,82 @@
+import { combineReducers } from 'redux-immutable'
 import request from 'superagent'
 // action types
 // -------------
-export const PERMISSION_LOAD_SUCCESS = 'PERMISSION_LOAD_SUCCESS';
+export const PERMISSION_LOAD_SUCCESS = 'PERMISSION_LOAD_SUCCESS'
+export const PERMISSION_LOAD_FAILED = 'PERMISSION_LOAD_FAILED'
+export const PERMISSION_LOADING = 'PERMISSION_LOADING'
 
 // reducers
-// --------------
-export const permission = (state = false, action) => {
+// ---------
+const permission = (state = false, action) => {
   switch (action.type) {
 
   case PERMISSION_LOAD_SUCCESS:
-    {
-      const value = action.value.canAccess;
-      console.log('PERMISSION_LOAD_SUCCESS', value);
-      return value;
-    }
+    return action.result.canAccess;
   default:
     return state;
   }
 }
 
+const isLoading = (state = false, action) => {
+  switch (action.type) {
+
+  case PERMISSION_LOADING:
+    return true;
+
+  case PERMISSION_LOAD_SUCCESS:
+    return false;
+
+  case PERMISSION_LOAD_FAILED:
+    return false;
+
+  default:
+    return state;
+  }
+}
+
+/**
+ * home state reducers
+ * @type {Object}
+ */
+export default combineReducers({
+  permission,
+  isLoading
+});
+
 // actions
+// --------
 export const onLoad = (dispatch) => () => {
+  dispatch(loading());
+
   request
     .get('/test.json')
     .set('Accept', 'application/json')
     .end(function (err, res) {
-      const action = {
-        type: PERMISSION_LOAD_SUCCESS,
-        value: res.body
+      if (err) {
+        dispatch(getPermissionFailed(err));
+      } else {
+        dispatch(getPermissionSuccess(res.body));
       }
-      dispatch(action);
     });
+}
+
+const getPermissionSuccess = (result) => {
+  return {
+    type: PERMISSION_LOAD_SUCCESS,
+    result
+  }
+}
+
+const getPermissionFailed = (error) => {
+  return {
+    type: PERMISSION_LOAD_FAILED,
+    error
+  };
+}
+
+const loading = () => {
+  return {
+    type: PERMISSION_LOADING
+  }
 }

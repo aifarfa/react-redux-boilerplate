@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux-immutable'
 import routing from './routing'
-import * as home from './home'
+import home from './home' // default home reducers
 
 export const reducers = combineReducers({
   routing,
-  permission: home.permission
-});
+  home
+})

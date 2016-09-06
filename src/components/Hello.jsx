@@ -3,7 +3,7 @@ import React from 'react';
 export default class Hello extends React.Component {
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps Home', nextProps)
+    // console.log('componentWillReceiveProps Hello', nextProps)
   }
 
   render() {
