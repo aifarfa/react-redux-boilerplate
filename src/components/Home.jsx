@@ -16,7 +16,6 @@ export class Home extends React.Component {
   render() {
     return (
       <div>
-        <h3>{this.props.title}</h3>
         <Hello hasPermission={this.props.hasPermission}/>
       </div>
     );

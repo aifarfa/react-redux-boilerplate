@@ -4,21 +4,21 @@ import {Link} from 'react-router'
 export default class App extends React.Component {
 
   componentWillMount() {
-    console.log('WillMount App')
+    // console.log('WillMount App')
   }
 
   componentDidMount() {
-    console.log('DidMount App')
+    // console.log('DidMount App')
   }
 
   render() {
     return (
       <div>
-        <h2>this is my app.</h2>
+        <h2>App here.</h2>
         <nav>
           <ul>
             <li>
-              <Link to="/">Hello</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
               <Link to="/about">About</Link>
