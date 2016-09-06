@@ -50,13 +50,15 @@ export const onLoad = (dispatch) => () => {
   dispatch(loading());
 
   request
-    .get('/test.json')
+    .get('test.json')
     .set('Accept', 'application/json')
     .end(function (err, res) {
+      // console.log('request end', res, err);
       if (err) {
         dispatch(getPermissionFailed(err));
       } else {
-        dispatch(getPermissionSuccess(res.body));
+        const result = res.body || JSON.parse(res.text);
+        dispatch(getPermissionSuccess(result));
       }
     });
 }
