@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "\"mocha --compilers js:babel-core/register --require babel-polyfill --require ./test/dom.js test/**/*.spec.*\""
+    "start": "webpack-dev-server",
+    "test": "mocha --compilers js:babel-core/register --require babel-polyfill --require ./test/dom.js test/**/*.spec.*"
   },
   "repository": {
     "type": "git",
