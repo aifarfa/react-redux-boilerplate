@@ -13,7 +13,7 @@ export default class Hello extends React.Component {
 
     return (
       <div>
-        <h3>{message}</h3>
+        <h3 className="msg">{message}</h3>
       </div>
     );
   }
