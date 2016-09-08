@@ -12,7 +12,7 @@ const permission = (state = false, action) => {
   switch (action.type) {
 
   case PERMISSION_LOAD_SUCCESS:
-    return action.result.canAccess;
+    return action.result.canAccess || false;
   default:
     return state;
   }
@@ -37,7 +37,7 @@ const isLoading = (state = false, action) => {
 
 /**
  * home state reducers
- * @type {Object}
+ * @type {function(state, action)}
  */
 export default combineReducers({
   permission,
@@ -53,7 +53,6 @@ export const onLoad = (dispatch) => () => {
     .get('test.json')
     .set('Accept', 'application/json')
     .end(function (err, res) {
-      // console.log('request end', res, err);
       if (err) {
         dispatch(getPermissionFailed(err));
       } else {
@@ -63,21 +62,21 @@ export const onLoad = (dispatch) => () => {
     });
 }
 
-const getPermissionSuccess = (result) => {
+export const getPermissionSuccess = (result) => {
   return {
     type: PERMISSION_LOAD_SUCCESS,
     result
   }
 }
 
-const getPermissionFailed = (error) => {
+export const getPermissionFailed = (error) => {
   return {
     type: PERMISSION_LOAD_FAILED,
     error
   };
 }
 
-const loading = () => {
+export const loading = () => {
   return {
     type: PERMISSION_LOADING
   }
