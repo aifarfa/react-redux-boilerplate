@@ -1,4 +1,6 @@
 import { expect } from 'chai'
+import nock from 'nock'
+import * as td from 'testdouble'
 import * as home from '../../src/modules/home'
 
 describe('reducer: home', () => {
@@ -29,7 +31,7 @@ describe('reducer: home', () => {
     let state;
 
     before(() => {
-      const action = { type: home.PERMISSION_LOADING };
+      const action = home.loading();
       state = reducer(undefined, action);
     });
 
@@ -42,12 +44,9 @@ describe('reducer: home', () => {
     let state;
 
     before(() => {
-      const action = {
-        type: home.PERMISSION_LOAD_SUCCESS,
-        result: { canAccess: true }
-      };
+      const action = home.getPermissionSuccess({ canAccess: true })
       state = reducer(undefined, action);
-    });
+    })
 
     it('is not loading', () => {
       expect(state.get('isLoading')).to.eq(false);
@@ -61,12 +60,9 @@ describe('reducer: home', () => {
     let state;
 
     before(() => {
-      const action = {
-        type: home.PERMISSION_LOAD_FAILED,
-        error: new Error('what!?')
-      };
+      const action = home.getPermissionFailed(new Error('what!?'));
       state = reducer(undefined, action);
-    });
+    })
 
     it('is not loading', () => {
       expect(state.get('isLoading')).to.eq(false);
@@ -77,8 +73,34 @@ describe('reducer: home', () => {
   })
 
   describe('fetch permission async', () => {
+    const dispatch = td.function(); // spy
+    const response = { canAccess: false }
+
     before('onLoad', () => {
-      // TODO: create store and dispatch action
+      const onLoad = home.onLoad(dispatch)
+      nock('http://api')
+        .get('/permission')
+        .reply(200, response);
+      onLoad();
+    })
+
+    it('dispatch PERMISSION_LOADING once', () => {
+      td.verify(dispatch(home.loading()))
+    })
+
+    it('dispatch PERMISSION_LOAD_SUCCESS', () => {
+      td.verify(dispatch(home.getPermissionSuccess(response)))
+    })
+
+    it('dispatch sequence of loading, success', () => {
+      const exp = td.explain(dispatch)
+      const firstCall = exp.calls[0]
+      const secondCall = exp.calls[1]
+        // console.log(exp.description);
+      expect(exp.callCount).to.eq(2)
+      expect(firstCall.args[0].type).to.eql(home.PERMISSION_LOADING)
+      expect(secondCall.args[0].type).to.eql(home.PERMISSION_LOAD_SUCCESS)
+      expect(secondCall.args[0].result).to.eql(response)
     })
   })
 })
