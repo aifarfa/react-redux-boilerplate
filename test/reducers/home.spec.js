@@ -78,8 +78,8 @@ describe('reducer: home', () => {
 
     before('onLoad', () => {
       const onLoad = home.onLoad(dispatch)
-      nock('http://api')
-        .get('/permission')
+      nock('http://test.json')
+        .get('/')
         .reply(200, response);
       onLoad();
     })
