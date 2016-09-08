@@ -12,7 +12,7 @@ const permission = (state = false, action) => {
   switch (action.type) {
 
   case PERMISSION_LOAD_SUCCESS:
-    return action.result.canAccess;
+    return action.result.canAccess || false;
   default:
     return state;
   }
