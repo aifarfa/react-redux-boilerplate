@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config webpack.config.prod.js -p",
     "start": "webpack-dev-server --history-api-fallback",
     "test": "mocha --compilers js:babel-core/register --require babel-polyfill --require ./test/dom.js \"test/**/*spec.+(js|jsx)\""
   },
