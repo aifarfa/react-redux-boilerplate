@@ -35,7 +35,7 @@ module.exports = config = {
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js',
-    publicPath: '/public/'
+    publicPath: '/'
   },
 
   devServer: {
