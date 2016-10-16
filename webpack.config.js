@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const APP_DIR = path.resolve('./src');
 const BUILD_DIR = path.resolve('./public');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = config = {
 
@@ -22,6 +22,9 @@ module.exports = config = {
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader?importLoaders=1'
+    }, {
+      test: /\.scss$/,
+      loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
     }, {
       test: /\.(png|woff|woff2|eot|ttf|svg)$/,
       loader: 'url-loader?limit=100000'
@@ -45,9 +48,9 @@ module.exports = config = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // new ExtractTextPlugin('style.css', {
-    //   allChunks: true,
-    //   disable: true
-    // })
+    new ExtractTextPlugin('style.css', {
+      allChunks: true,
+      disable: true
+    })
   ]
 };

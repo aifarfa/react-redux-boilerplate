@@ -12,7 +12,7 @@ import App from './components/App'
 import About from './components/About'
 import Home from './components/Home'
 
-// require('./style.scss');
+require('./style.scss');
 // require('../node_modules/bootstrap/dist/css/bootstrap.css');
 
 const initialState = Immutable.fromJS({routing: {}});
