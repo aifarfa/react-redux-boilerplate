@@ -1,0 +1,34 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "mocha": true,
+    "node": true
+  },
+
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+
+  "globals": {
+    "document": false,
+    "navigator": false,
+    "window": false,
+    "Polymer": false
+  },
+
+  "plugins": ["react"],
+
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+  }
+}
