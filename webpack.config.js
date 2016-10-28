@@ -2,9 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const APP_DIR = path.resolve('./src');
 const BUILD_DIR = path.resolve('./public');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = config = {
+module.exports = {
 
   entry: [
     'babel-polyfill',
@@ -44,10 +43,6 @@ module.exports = config = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    // new ExtractTextPlugin('style.css', {
-    //   allChunks: true,
-    //   disable: true
-    // })
+    new webpack.HotModuleReplacementPlugin()
   ]
 };

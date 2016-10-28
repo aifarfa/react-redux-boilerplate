@@ -2,9 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const APP_DIR = path.resolve('./src');
 const BUILD_DIR = path.resolve('./public');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = config = {
+module.exports = {
 
   entry: [
     'babel-polyfill',
@@ -37,11 +36,12 @@ module.exports = config = {
   },
 
   plugins: [
-    // new ExtractTextPlugin('style.css', {
-    //   allChunks: true,
-    //   disable: true
-    // }),
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      debug: false,
+      compressor: {
+        warnings: false
+      }
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     })
